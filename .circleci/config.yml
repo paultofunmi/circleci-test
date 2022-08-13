@@ -23,7 +23,7 @@ jobs:
           command: "echo World!"
 
 workflows:
-  welcome:
+  dev-build:
     jobs:
       - welcome/run
       - print_hello
