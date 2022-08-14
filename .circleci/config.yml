@@ -21,9 +21,9 @@ jobs:
       - checkout
       - run:
           name: "Save HelloWorld To File"
-          command: echo "HelloWorld" > /tmp/dir/output.txt
+          command: echo "HelloWorld" > ~/output.txt
       - persist_to_workspace:
-          root: /tmp/dir
+          root: ~/
           paths:
             - output.txt
 
@@ -33,7 +33,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/dir
+          at: ~/
       - run:
           name: "Print File Content to console"
           command: cat output.txt
