@@ -19,20 +19,20 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
+      - persist_to_workspace:
+          root: /tmp/dir
+          paths:
+            - output.txt
       - run:
           name: "Save HelloWorld To File"
           command: echo "HelloWorld" > output.txt
-      - persist_to_workspace:
-          root: /tmp/workspace
-          paths:
-            - output.txt
   print_outputfile:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/dir
       - run:
           name: "Print File Content to console"
           command: cat output.txt
