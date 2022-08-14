@@ -76,6 +76,18 @@ jobs:
           command: |
             echo $MY_ENV_VAR
 
+  test_onfail:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: "Return non zero"
+          command: return 1
+      - run:
+          name: "Log on failure"
+          command: echo "Hello Error"
+          when: on_fail
+
 workflows:
   dev-build:
     jobs:
@@ -87,3 +99,4 @@ workflows:
       - build
       - print_hello_with_command
       - print_pipeline_id_with_command
+      - test_onfail
