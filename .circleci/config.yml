@@ -36,7 +36,7 @@ jobs:
           at: ~/
       - run:
           name: "Print File Content to console"
-          command: cat output.txt
+          command: cat ~/output.txt
 
   build:
     docker:
