@@ -21,7 +21,7 @@ jobs:
       - run:
           name: "Print World"
           command: "echo World!"
-  print_envar:
+  print_env_var:
     docker:
       - image: circleci/node:13.8.0
     steps:
@@ -37,3 +37,4 @@ workflows:
       - print_hello
       - print_world:
           requires: [print_hello]
+      - print_env_var
