@@ -1,22 +1,51 @@
+defaults: &defaults
+  docker:
+    - image: circleci/node:13.8.0
+
 version: 2.1
 # Use a package of configuration called an orb.
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
+commands:
+  sayHello:
+    description: "Simple Description"
+    parameters:
+      to:
+        type: string
+        default: "Hello Default"
+    steps:
+      - run: echo << parameters.to >>
+
+  print_pipeline_id:
+    description: "Simple Description"
+    steps:
+      - run: echo $CIRCLE_WORKFLOW_ID
+
 jobs:
   print_hello:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - checkout
       - run:
           name: "Print Hello"
           command: "echo Hello!"
 
+  print_hello_with_command:
+    <<: *defaults
+    steps:
+      - sayHello:
+          to: "Tofunmi"
+      - sayHello
+
+  print_pipeline_id_with_command:
+    <<: *defaults
+    steps:
+      - print_pipeline_id
+
   save_helloworld:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - checkout
       - run:
@@ -28,8 +57,7 @@ jobs:
             - output.txt
 
   print_outputfile:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *defaults
     steps:
       - checkout
       - attach_workspace:
@@ -57,3 +85,5 @@ workflows:
       - print_outputfile:
           requires: [save_helloworld]
       - build
+      - print_hello_with_command
+      - print_pipeline_id_with_command
