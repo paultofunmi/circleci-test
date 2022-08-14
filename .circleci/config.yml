@@ -82,7 +82,8 @@ jobs:
       - checkout
       - run:
           name: "Return non zero"
-          command: exit 1
+          command: exit 0
+          # command: exit 1
       - run:
           name: "Log on failure"
           command: echo "Hello Error!"
