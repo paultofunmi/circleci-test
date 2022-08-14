@@ -82,10 +82,10 @@ jobs:
       - checkout
       - run:
           name: "Return non zero"
-          command: return 1
+          command: exit 1
       - run:
           name: "Log on failure"
-          command: echo "Hello Error"
+          command: echo "Hello Error!"
           when: on_fail
 
 workflows:
