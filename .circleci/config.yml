@@ -9,7 +9,7 @@ orbs:
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
 commands:
-  say_Hello:
+  say_hello:
     description: "Simple Description"
     parameters:
       to:
@@ -35,7 +35,7 @@ jobs:
   print_hello_with_command:
     <<: *defaults
     steps:
-      - say_Hello
+      - say_hello
 
   print_pipeline_id_with_command:
     <<: *defaults
