@@ -30,13 +30,11 @@ jobs:
       - checkout
       - run:
           name: "Print Hello"
-          command: "echo Hello!"
+          command: "echo Hello World!"
 
   print_hello_with_command:
     <<: *defaults
     steps:
-      - say_Hello:
-          to: "Hello Tofunmi"
       - say_Hello
 
   print_pipeline_id_with_command:
