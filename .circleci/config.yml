@@ -13,14 +13,30 @@ jobs:
       - run:
           name: "Print Hello"
           command: "echo Hello!"
-  print_world:
+
+  save_helloworld:
     docker:
       - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
-          name: "Print World"
-          command: "echo World!"
+          name: "Save HelloWorld To File"
+          command: echo "HelloWorld" > output.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt
+  print_outputfile:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: "Print File Content to console"
+          command: cat output.txt
+
   build:
     docker:
       - image: cimg/base:2020.01
@@ -36,6 +52,7 @@ workflows:
     jobs:
       - welcome/run
       - print_hello
-      - print_world:
-          requires: [print_hello]
+      - save_helloworld
+      - print_outputfile:
+          requires: [save_helloworld]
       - build
